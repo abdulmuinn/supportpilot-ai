@@ -25,6 +25,12 @@ dev = [
     "pytest>=9.1,<10",
 ]
 
+dashboard = [
+    "httpx>=0.28,<0.29",
+    "streamlit>=1.61,<1.62",
+    "pandas>=3.0,<3.1",
+]
+
 
 [tool.setuptools.packages.find]
 where = ["src"]
