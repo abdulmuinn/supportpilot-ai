@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+
+    image: supportpilot-api:dev
+
+    environment:
+      SUPPORTPILOT_MODEL_ID: /models/supportpilot
+
+    volumes:
+      - type: bind
+        source: ${SUPPORTPILOT_MODEL_HOST_PATH:?Set SUPPORTPILOT_MODEL_HOST_PATH in .env}
+        target: /models/supportpilot
+        read_only: true
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped
+
+  ui:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ui
+
+    image: supportpilot-ui:dev
+
+    environment:
+      SUPPORTPILOT_API_URL: http://api:8000
+
+    ports:
+      - "8501:8501"
+
+    depends_on:
+      api:
+        condition: service_healthy
+
+    restart: unless-stopped
