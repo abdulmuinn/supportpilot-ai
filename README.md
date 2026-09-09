@@ -6,6 +6,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11%20%7C%203.12-blue)
 ![FastAPI](https://img.shields.io/badge/API-FastAPI-009688)
 ![Docker](https://img.shields.io/badge/Deployment-Docker-2496ED)
+[![Hugging Face Model](https://img.shields.io/badge/Hugging%20Face-SupportPilot%20DistilBERT-yellow)](https://huggingface.co/abdulmuinnn/supportpilot-distilbert)
 
 SupportPilot AI classifies customer support messages into **46 intents** using a fine-tuned **DistilBERT** model and exposes inference through a **FastAPI REST API**, an interactive **Streamlit dashboard**, and a containerized **Docker Compose** deployment stack.
 
@@ -218,9 +219,17 @@ http://localhost:8501
 
 ## Model Artifact Setup
 
-The trained DistilBERT artifact is intentionally distributed separately from the application source code.
+The trained DistilBERT model is publicly available on Hugging Face:
 
-For local model structure, environment configuration, Docker mounting, and remote-model options, see:
+[`abdulmuinnn/supportpilot-distilbert`](https://huggingface.co/abdulmuinnn/supportpilot-distilbert)
+
+For local development, the application can load the model directly from Hugging Face by setting:
+
+`SUPPORTPILOT_MODEL_ID=abdulmuinnn/supportpilot-distilbert`
+
+The inference layer also supports loading a local Hugging Face-compatible model directory.
+
+For detailed configuration options, see:
 
 [Model Artifact Setup](docs/MODEL_SETUP.md)
 
@@ -250,6 +259,8 @@ SUPPORTPILOT_MODEL_HOST_PATH=/absolute/path/to/model
 ```
 
 The configured directory must contain the trained Hugging Face model artifacts.
+
+> **Note:** The current Docker Compose configuration uses a local read-only model mount. The same model is publicly available on Hugging Face at [`abdulmuinnn/supportpilot-distilbert`](https://huggingface.co/abdulmuinnn/supportpilot-distilbert) and can be loaded directly during non-Compose local development.
 
 ### 3. Start the stack
 

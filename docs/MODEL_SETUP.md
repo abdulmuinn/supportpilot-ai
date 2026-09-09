@@ -90,13 +90,19 @@ SUPPORTPILOT_MODEL_ID=/models/supportpilot
 
 ## Remote Model Source
 
-The inference loader can also resolve a Hugging Face repository ID through:
+The released SupportPilot model is publicly available on Hugging Face:
 
-```text
-SUPPORTPILOT_MODEL_ID=organization/model-name
-```
+`abdulmuinnn/supportpilot-distilbert`
 
-The current Docker Compose configuration is designed around a local read-only model mount. Remote-model deployment can be configured separately depending on the target environment.
+For local development, set:
+
+`SUPPORTPILOT_MODEL_ID=abdulmuinnn/supportpilot-distilbert`
+
+The inference loader can download and cache the model automatically through Hugging Face Transformers.
+
+The same model can also be loaded directly with `AutoTokenizer.from_pretrained()` and `AutoModelForSequenceClassification.from_pretrained()` using the model ID above.
+
+The current Docker Compose configuration still uses a local read-only bind mount for the model artifact.
 
 ## Why the Model Is Not Stored in Git
 
