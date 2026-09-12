@@ -7,13 +7,11 @@ services:
     image: supportpilot-api:dev
 
     environment:
-      SUPPORTPILOT_MODEL_ID: /models/supportpilot
+      SUPPORTPILOT_MODEL_ID: ${SUPPORTPILOT_MODEL_ID:-abdulmuinnn/supportpilot-distilbert}
+      HF_HOME: /home/appuser/.cache/huggingface
 
     volumes:
-      - type: bind
-        source: ${SUPPORTPILOT_MODEL_HOST_PATH:?Set SUPPORTPILOT_MODEL_HOST_PATH in .env}
-        target: /models/supportpilot
-        read_only: true
+      - huggingface-cache:/home/appuser/.cache/huggingface
 
     ports:
       - "8000:8000"
@@ -38,3 +36,6 @@ services:
         condition: service_healthy
 
     restart: unless-stopped
+
+volumes:
+  huggingface-cache:

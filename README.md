@@ -244,23 +244,19 @@ git clone https://github.com/abdulmuinn/supportpilot-ai.git
 cd supportpilot-ai
 ```
 
-### 2. Configure the local model path
+### 2. Configure the model
 
-Copy the environment template:
+By default, Docker Compose uses the public SupportPilot model from Hugging Face:
 
-```bash
-cp .env.example .env
-```
+`abdulmuinnn/supportpilot-distilbert`
 
-Set:
+No local model directory is required.
 
-```text
-SUPPORTPILOT_MODEL_HOST_PATH=/absolute/path/to/model
-```
+On the first startup, the API downloads the model from Hugging Face and stores it in a persistent Docker volume. Subsequent container restarts reuse the cached model.
 
-The configured directory must contain the trained Hugging Face model artifacts.
+To use a different Hugging Face-compatible model, create a `.env` file and override:
 
-> **Note:** The current Docker Compose configuration uses a local read-only model mount. The same model is publicly available on Hugging Face at [`abdulmuinnn/supportpilot-distilbert`](https://huggingface.co/abdulmuinnn/supportpilot-distilbert) and can be loaded directly during non-Compose local development.
+`SUPPORTPILOT_MODEL_ID=organization/model-name`
 
 ### 3. Start the stack
 
