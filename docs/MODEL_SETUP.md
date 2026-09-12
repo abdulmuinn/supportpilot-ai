@@ -56,37 +56,27 @@ Expected structure:
 
 ## Docker Compose
 
-Docker Compose mounts the trained model into the API container as read-only storage.
+Docker Compose uses the public SupportPilot model by default:
 
-Create the local environment file:
+`abdulmuinnn/supportpilot-distilbert`
 
-```bash
-cp .env.example .env
-```
+No local model directory is required.
 
-Configure:
+On the first startup, the API container downloads the model from Hugging Face.
 
-```text
-SUPPORTPILOT_MODEL_HOST_PATH=/absolute/path/to/model
-```
+Downloaded model files are stored in the persistent Docker volume:
 
-Then start the stack:
+`supportpilot-ai_huggingface-cache`
 
-```bash
-docker compose up -d --build
-```
+Subsequent container restarts reuse the cached model instead of downloading it again.
 
-Inside the API container, the model is exposed at:
+To use a different Hugging Face-compatible model, set:
 
-```text
-/models/supportpilot
-```
+`SUPPORTPILOT_MODEL_ID=organization/model-name`
 
-and configured through:
+Then start the stack with:
 
-```text
-SUPPORTPILOT_MODEL_ID=/models/supportpilot
-```
+`docker compose up -d --build`
 
 ## Remote Model Source
 
@@ -101,8 +91,6 @@ For local development, set:
 The inference loader can download and cache the model automatically through Hugging Face Transformers.
 
 The same model can also be loaded directly with `AutoTokenizer.from_pretrained()` and `AutoModelForSequenceClassification.from_pretrained()` using the model ID above.
-
-The current Docker Compose configuration still uses a local read-only bind mount for the model artifact.
 
 ## Why the Model Is Not Stored in Git
 
