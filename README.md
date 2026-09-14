@@ -244,7 +244,7 @@ git clone https://github.com/abdulmuinn/supportpilot-ai.git
 cd supportpilot-ai
 ```
 
-### 2. Configure the model
+### 2. Model configuration (optional)
 
 By default, Docker Compose uses the public SupportPilot model from Hugging Face:
 
@@ -310,7 +310,7 @@ python -m pip install -e ".[dev,dashboard]"
 Configure the model source:
 
 ```bash
-export SUPPORTPILOT_MODEL_ID=/path/to/model
+export SUPPORTPILOT_MODEL_ID=abdulmuinnn/supportpilot-distilbert
 ```
 
 Run FastAPI:
@@ -397,7 +397,6 @@ SupportPilot AI is a **production-oriented portfolio system**, not a fully manag
 
 Current limitations include:
 
-- model artifacts are currently supplied separately rather than distributed with the repository
 - evaluation results are based on the project dataset rather than live production traffic
 - no API authentication or authorization layer
 - no rate limiting
@@ -412,7 +411,7 @@ These areas are intentionally separated from the core inference system and can b
 
 ## Project Origin
 
-SupportPilot AI originated from a machine learning final project and was independently redesigned as an ML engineering portfolio case study.
+SupportPilot AI began as an ML classification project and was independently re-engineered into an ML engineering portfolio system.
 
 The portfolio version focuses on software engineering and deployment concerns beyond model training, including:
 
